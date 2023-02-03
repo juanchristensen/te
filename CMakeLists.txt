@@ -27,7 +27,7 @@ option(BOOST_TE_BUILD_EXAMPLES "Build the examples" OFF)
 option(BOOST_TE_BUILD_TESTS "Build the tests" OFF)
 option(BOOST_TE_USE_WARNINGS_AS_ERRORS "Build the tests" ${PROJECT_IS_TOP_LEVEL})
 option(BOOST_TE_DISABLE_MODULE "Disable te module" OFF)
-option(BOOST_TE_ALLOW_CPM_USE "Do not reach out across network for CPM" ON)
+option(BOOST_TE_ALLOW_CPM_USE "Do not reach out across network for CPM" OFF)
 
 if(NOT CMAKE_SKIP_INSTALL_RULES)
   if(BOOST_TE_ALLOW_CPM_USE)
