@@ -23,6 +23,7 @@ endif()
 option(BOOST_TE_ENABLE_MEMCHECK "Run the unit tests and examples under valgrind if it is found." OFF)
 option(BOOST_TE_ENABLE_COVERAGE "Run coverage." OFF)
 option(BOOST_TE_ENABLE_SANITIZERS "Run static analysis." OFF)
+option(BOOST_TE_ENABLE_CLANG_FORMAT "Run Clang Format." OFF)
 option(BOOST_TE_BUILD_EXAMPLES "Build the examples" OFF)
 option(BOOST_TE_BUILD_TESTS "Build the tests" OFF)
 option(BOOST_TE_USE_WARNINGS_AS_ERRORS "Build the tests" ${PROJECT_IS_TOP_LEVEL})
@@ -60,11 +61,12 @@ if(BOOST_UT_USE_WARNINGS_AS_ERRORS)
   include(cmake/WarningsAsErrors.cmake)
 endif()
 
-add_custom_target(style)
-add_custom_command(TARGET style COMMAND find ${CMAKE_CURRENT_LIST_DIR}/example
-  ${CMAKE_CURRENT_LIST_DIR}/include ${CMAKE_CURRENT_LIST_DIR}/test -iname
-  "*.hpp" -or -iname "*.cpp" | xargs clang-format -i)
-
+if(BOOST_TE_ENABLE_CLANG_FORMAT)
+  add_custom_target(style)
+  add_custom_command(TARGET style COMMAND find ${CMAKE_CURRENT_LIST_DIR}/example
+    ${CMAKE_CURRENT_LIST_DIR}/include ${CMAKE_CURRENT_LIST_DIR}/test -iname
+    "*.hpp" -or -iname "*.cpp" | xargs clang-format -i)
+endif()
 add_compile_options(-Wall -Wextra -Werror -pedantic -pedantic-errors)
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   add_compile_options(-fconcepts)
